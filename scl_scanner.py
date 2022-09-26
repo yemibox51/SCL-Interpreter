@@ -15,13 +15,45 @@ classifiers = {"define", "import"}
 words = []
 word = ""
 
+keywords_found = []
+classifiers_found = []
+identifiers_found = []
+
 with open('Documents/welcome.scl') as f:
 	lines = f.readlines()
 
+comment_stack = []
+
 for line in lines:
-    for word in line:
-        if word == "/*":
-            continue
+    """
+    Skips Multi-Line Comments
+    """
+    if(line.find("/*") != -1):
+        comment_stack.append("/*")
+    elif(line.find("*/") != -1):
+        comment_stack.pop()
+        continue
+    
+    # No comments
+    if(len(comment_stack) <= 0):
+        words.append(line.split(" "))
+
+
+
+    """
+    # No comments
+    if(len(comment_stack) <= 0):
+        for letter in line:
+            if letter == " ":
+                if word in keywords:
+                    keywords_found.append(word)
+                elif word in classifiers:
+                    classifiers_found.append(word)
+                    for id in range(letter, len(len))
+
+            word += letter
+        print(line)
+    """
 
 
 
@@ -43,4 +75,4 @@ for letter in lines:
 # if things have qoutation marks, need to be treated as the object itself
 
 # print(words)
-print(lines)
+# print(lines)
